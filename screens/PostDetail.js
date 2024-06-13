@@ -3,11 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Modal, Touchabl
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PostComment from './PostComment';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const PostDetail = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { post_id, title, content, photo_url, likes } = route.params;
+  const { post_id, title, content, photo_url, likes, onDelete} = route.params;
   const [likeCount, setLikeCount] = useState(likes ? likes.length : 0);
   const [liked, setLiked] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -15,20 +17,22 @@ const PostDetail = () => {
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      const token = await AsyncStorage.getItem('authToken');
-      const response = await fetch(`http://localhost:3000/api/posts/getcomment?post_id=${post_id}`, {
-        headers: {
-          'Authorization': token,
-        },
-      });
-      const result = await response.json();
-      setComments(result.data);
-    };
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchComments = async () => {
+        const token = await AsyncStorage.getItem('authToken');
+        const response = await fetch(`http://localhost:3000/api/posts/getcomment?post_id=${post_id}`, {
+          headers: {
+            'Authorization': token,
+          },
+        });
+        const result = await response.json();
+        setComments(result.data);
+      };
 
-    fetchComments();
-  }, []);
+      fetchComments();
+    }, [post_id])
+  );
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -71,6 +75,7 @@ const PostDetail = () => {
 
       if (response.ok) {
         Alert.alert('Success', 'Post deleted successfully');
+        onDelete(); // 삭제 후 onDelete 콜백 호출
         navigation.navigate('ListPost');
       } else {
         const result = await response.json();
@@ -159,7 +164,12 @@ const PostDetail = () => {
           </TouchableWithoutFeedback>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <PostComment userId={userId} postId={post_id} />
+              <PostComment 
+              userId={userId} 
+              postId={post_id}
+              addComment={addComment} // 추가
+              closeModal={() => setCommentModalVisible(false)} // 추가 
+               />
             </View>
           </View>
         </Modal>

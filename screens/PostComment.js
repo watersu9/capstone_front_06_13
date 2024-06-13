@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const PostComment = ({ userId, postId }) => {
+
+const PostComment = ({ userId, postId, addComment, closeModal }) => {
     const [content, setContent] = useState('');
 
     const postComment = async () => {
@@ -33,6 +34,7 @@ const PostComment = ({ userId, postId }) => {
 
             if (response.status === 201) {
                 Alert.alert("Success", "Comment posted successfully.");
+                addComment(postId, content); // addComment 호출하여 comments 상태 업데이트
                 setContent(''); // Clear the input field
             } else {
                 Alert.alert("Error", result.message || "Failed to post comment.");
@@ -53,8 +55,9 @@ const PostComment = ({ userId, postId }) => {
             />
             <TouchableOpacity
                 style={styles.button}
-                // onPress={postComment}
-                onPress={() => postComment()}
+                onPress={postComment}
+
+                // onPress={() => postComment()}
 
             >
                 <Text style={styles.buttonText}>답글</Text>

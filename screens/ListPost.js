@@ -64,10 +64,14 @@ const ListPost = () => {
         fetchPosts();
     }, [page, searchQuery]);
 
+    const handleNewPost = (newPost) => {
+        setPosts([newPost, ...posts]);
+    };
+
     const renderItem = ({ item }) => (
         <TouchableOpacity
             style={styles.postItem}
-            onPress={() => navigation.navigate('PostDetail', { ...item })}
+            onPress={() => navigation.navigate('PostDetail', { ...item, onDelete: fetchPosts })}
         >
             <View style={styles.postContentContainer}>
                 <View style={styles.postTextContainer}>
@@ -93,7 +97,7 @@ const ListPost = () => {
             <View style={styles.container}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>All Posts</Text>
-                    <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('CreatePost')}>
+                    <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('CreatePost', { onNewPost: handleNewPost })}>
                         <Text style={styles.createButtonText}>Create New Post</Text>
                     </TouchableOpacity>
                 </View>

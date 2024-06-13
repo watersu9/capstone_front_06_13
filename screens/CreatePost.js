@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Alert, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreatePost = () => {
@@ -10,6 +10,9 @@ const CreatePost = () => {
   const [image, setImage] = useState(null);
   const [postname, setPostname] = useState('');
   const navigation = useNavigation();
+  const route = useRoute();
+  const onNewPost = route.params?.onNewPost; // 콜백 함수 받기
+
 
   useEffect(() => {
     const fetchPostname = async () => {
@@ -67,7 +70,24 @@ const CreatePost = () => {
       const data = JSON.parse(text);
       if (response.status === 201) {
         Alert.alert('Success', `Post created with ID: ${data.id}`);
-        navigation.navigate('PostDetail', { title, content, image }); // Navigate to PostDetail
+
+        const newPost = {
+          post_id: data.id,
+          title,
+          content,
+          photo_url: data.photo_url,
+          likes: [],
+        };
+        if (onNewPost) { // 콜백 함수 호출
+          onNewPost(newPost);
+        }
+        navigation.navigate('PostDetail', { 
+          title, 
+          content, 
+          image, 
+          photo_url: data.photo_url 
+        }); // Navigate to PostDetail
+        
       } else {
         Alert.alert('Error', data.message);
       }
