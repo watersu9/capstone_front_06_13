@@ -146,7 +146,7 @@ const Chatting = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('TrainerList')}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Login1')}>
         <Image source={require('../assets/rightarrow-1.png')} style={styles.backIcon} />
       </TouchableOpacity>
       <View style={styles.titleContainer}>

@@ -35,7 +35,7 @@ const ServiceStart = () => {
       <View style={[styles.servicestartInner, styles.backbuttonChildBorder]} />
       <Pressable
         style={[styles.pressable, styles.pressableLayout]}
-        onPress={() => Linking.openURL("https://taeyoung0823.github.io/")}
+        onPress={() => Linking.openURL("https://jisuuuuu.github.io/mediapipe_js/")}
       >
         <View style={[styles.child, styles.pressableLayout]} />
         <Text style={[styles.text1, styles.textTypo]}>자세 측정</Text>
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: -161.5,
     top: 160,
-    left: "50%",
+    left: "47%",
     fontSize: FontSize.size_13xl,
     fontWeight: "800",
     fontFamily: FontFamily.interExtraBold,
     textAlign: "left",
-    width: 322,
+    width: 380,
     height: 200,
     color: Color.colorBlack,
     position: "absolute",

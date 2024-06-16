@@ -98,7 +98,7 @@ const ListPost = () => {
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>All Posts</Text>
                     <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('CreatePost', { onNewPost: handleNewPost })}>
-                        <Text style={styles.createButtonText}>Create New Post</Text>
+                        <Text style={styles.createButtonText}>새 게시물</Text>
                     </TouchableOpacity>
                 </View>
                 <TextInput

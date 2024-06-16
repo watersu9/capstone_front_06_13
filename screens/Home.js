@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   text: {
     top: 20,
-    left: 60,
+    left: 20,
     fontSize: FontSize.size_5xl,
     fontWeight: "800",
     fontFamily: FontFamily.latoBlack,

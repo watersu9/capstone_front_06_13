@@ -229,15 +229,14 @@ const styles = StyleSheet.create({
   },
   backbutton: {
     position: "absolute",
-    top: 40,
-    left: 10,
+    top: 20,
+    left: -10,
     height: 39,
     width: 41,
   },
   rightArrow1Icon: {
-    width: 20,
-    height: 16,
-    transform: [{ rotate: '180deg' }], // 이미지 회전
+    width: 24,
+    height: 24,
   },
   saveButton: {
     backgroundColor: '#02AE85', // 버튼 배경색

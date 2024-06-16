@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imagePickerIconContainer: {
-    width: 270,
+    width: 310,
     height: 270,
     backgroundColor: '#fff',
     justifyContent: 'center',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     textAlign:'right',
     top: 60,
-    left: 150,
+    left: 180,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
